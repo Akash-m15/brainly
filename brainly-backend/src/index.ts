@@ -59,7 +59,7 @@ app.post("/api/v1/signin", async (req, res) => {
       },
       JWT_PASSWORD
     );
-
+    console.log(token);
     res.json({ token });
   } else {
     res.send("Incorrect Credentials");
