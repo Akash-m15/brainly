@@ -2,8 +2,7 @@ import { useRef, useState } from "react";
 import { CloseIcon } from "../icons/CloseIcon";
 import { Button } from "./ui/Button";
 import { InputBox } from "./ui/InputBox";
-import dotenv from "dotenv";
-dotenv.config();
+import { BACKEND_URL } from "../config";
 import axios from "axios";
 
 
@@ -33,7 +32,7 @@ export function CreateContentModal({modalOpen,setModalOpen,refreshContents}:Moda
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
 
-  const res = await axios.post(`${process.env.BACKEND_URL}/api/v1/content`,{
+  const res = await axios.post(`${BACKEND_URL}/api/v1/content`,{
       title,
       link,
       type:contentType

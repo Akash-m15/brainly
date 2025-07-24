@@ -3,8 +3,7 @@ import { Button } from "./ui/Button";
 import { InputBox } from "./ui/InputBox";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import dotenv from "dotenv";
-dotenv.config();
+import { BACKEND_URL } from "../config";
 
 export default function SignIn() {
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -17,7 +16,7 @@ export default function SignIn() {
     const password = passwordRef.current?.value;
     try {
       const res = await axios.post(
-        `${process.env.BACKEND_URL}/api/v1/signin`,
+        `${BACKEND_URL}/api/v1/signin`,
         JSON.stringify({
           username,
           password,

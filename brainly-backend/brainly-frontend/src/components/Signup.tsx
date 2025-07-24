@@ -1,8 +1,7 @@
 import { useRef } from "react";
 import { Button } from "./ui/Button";
 import { InputBox } from "./ui/InputBox";
-import dotenv from "dotenv";
-dotenv.config();
+import { BACKEND_URL } from "../config"; 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +17,7 @@ export default function Signup() {
     console.log(username + "" + password)
     await axios
       .post(
-        `${process.env.BACKEND_URL}/api/v1/signup`,
+        `${BACKEND_URL}/api/v1/signup`,
         JSON.stringify({
           username,
           password,
