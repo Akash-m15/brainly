@@ -51,6 +51,8 @@ app.post("/api/v1/signup", async (req, res) => {
 app.post("/api/v1/signin", async (req, res) => {
   const user = await UserModel.findOne({ username: req.body.username });
   if (user) {
+    console.log("Before jwt")
+    console.log(process.env.JWT_PASSWORD)
     //@ts-ignore
     const JWT_PASSWORD:string = process.env.JWT_PASSWORD;
     const token = jwt.sign(
