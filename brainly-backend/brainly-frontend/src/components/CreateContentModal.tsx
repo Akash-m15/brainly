@@ -2,10 +2,9 @@ import { useRef, useState } from "react";
 import { CloseIcon } from "../icons/CloseIcon";
 import { Button } from "./ui/Button";
 import { InputBox } from "./ui/InputBox";
-import { BACKEND_URL } from "../config";
+import dotenv from "dotenv";
+dotenv.config();
 import axios from "axios";
-import { UseContent } from "./UseContent";
-
 
 
 interface ModalProps {
@@ -34,7 +33,7 @@ export function CreateContentModal({modalOpen,setModalOpen,refreshContents}:Moda
     const title = titleRef.current?.value;
     const link = linkRef.current?.value;
 
-  const res = await axios.post(`${BACKEND_URL}/api/v1/content`,{
+  const res = await axios.post(`${process.env.BACKEND_URL}/api/v1/content`,{
       title,
       link,
       type:contentType
@@ -45,7 +44,7 @@ export function CreateContentModal({modalOpen,setModalOpen,refreshContents}:Moda
       }
     })
     
-    alert("Content Added")
+    alert("Content Added");console.log(res)
     refreshContents()
 
     setModalOpen(false)
