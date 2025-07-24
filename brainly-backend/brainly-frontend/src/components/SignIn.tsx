@@ -17,10 +17,10 @@ export default function SignIn() {
     try {
       const res = await axios.post(
         `${BACKEND_URL}/api/v1/signin`,
-        JSON.stringify({
+       {
           username,
           password,
-        }),
+        },
         {
           headers: {
             "Content-Type": "application/json",

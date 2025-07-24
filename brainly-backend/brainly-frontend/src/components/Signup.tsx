@@ -19,10 +19,10 @@ export default function Signup() {
     await axios
       .post(
         `${BACKEND_URL}/api/v1/signup`,
-        JSON.stringify({
+       {
           username,
           password,
-        }),
+        },
         {
           headers: {
             "Content-Type": "application/json",
