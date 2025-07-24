@@ -1,12 +1,12 @@
 {
-  "name": "brainly",
+  "name": "brainly-backend",
   "version": "1.0.0",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": " npx tsc -b && node dist/index.js",
-     "build": "tsc",
+     "build": "cd brainly-frontend && npm install && npm run build && cd .. && tsc",
     "start": "node dist/index.js"
   },
   "keywords": [],

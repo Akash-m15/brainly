@@ -2,10 +2,10 @@
 
 
 
-import { Button } from "../components/ui/Button";
+import { Button } from "./ui/Button";
 import { PlusIcon } from "../icons/PlusIcon";
 import { ShareIcon } from "../icons/ShareIcon";
-import { Card } from "../components/ui/Card";
+import { Card } from "./ui/Card";
 
 import { useState } from "react";
 import { CreateContentModal } from "./CreateContentModal";
