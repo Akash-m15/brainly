@@ -27,3 +27,4 @@ Thumbs.db
 # === Optional: lock files ===
 # Uncomment if you're using yarn or pnpm instead of npm
 # yarn.loc
+brainly-frontend/.gitignore

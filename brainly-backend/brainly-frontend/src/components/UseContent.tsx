@@ -1,6 +1,5 @@
 import axios from "axios"
-import dotenv from "dotenv";
-dotenv.config();
+import { BACKEND_URL } from "../config"
 import { useEffect } from "react"
 
 
@@ -12,7 +11,7 @@ export  function UseContent({contents,setContents}:any) {
 
   async function refreshContents()
   {
-    const res = await axios.get(`${process.env.BACKEND_URL}/api/v1/content`,{
+    const res = await axios.get(`${BACKEND_URL}/api/v1/content`,{
       headers:{
         "Authorization" : localStorage.getItem("token")
     }
