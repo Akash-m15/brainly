@@ -1,12 +1,12 @@
 import {Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-
-import { JWT_PASSWORD } from "./config";
+import dotenv from "dotenv";
+dotenv.config();
 
 export function authMiddleware(req: Request , res:Response , next : NextFunction){
   //@ts-ignore
   const token = req.header('authorization');
-  const decoded = jwt.verify(token as string,JWT_PASSWORD);
+  const decoded = jwt.verify(token as string,process.env.JWT_PASSWORD as string);
 
   if(decoded)
   {

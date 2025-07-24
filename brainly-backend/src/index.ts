@@ -53,8 +53,8 @@ app.post("/api/v1/signin", async (req, res) => {
   if (user) {
     console.log("Before jwt")
     console.log(process.env.JWT_PASSWORD)
-    //@ts-ignore
-    const JWT_PASSWORD:string = process.env.JWT_PASSWORD;
+   
+    const JWT_PASSWORD = process.env.JWT_PASSWORD as string;
     const token = jwt.sign(
       {
         userId: user._id,
