@@ -27,7 +27,7 @@ export default function SignIn() {
           },
         }
       );
-      console.log(res.data.token)
+      
       localStorage.setItem("token", res.data.token);
       navigate('/home')
     } catch (err) {
