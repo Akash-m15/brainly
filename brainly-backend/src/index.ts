@@ -139,7 +139,7 @@ app.get("/api/v1/brain/:shareLink", async (req, res) => {
 
 import path from "path";
 
-const __dirname = path.resolve();
+
 
 app.use(express.static(path.join(__dirname, "../brainly-frontend/dist")));
 
