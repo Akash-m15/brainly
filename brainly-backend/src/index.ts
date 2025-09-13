@@ -7,7 +7,8 @@ import dotenv from "dotenv";
 dotenv.config();
 import { authMiddleware } from "./middleware";
 import { random } from "./utils";
-
+import rateLimit from "express-rate-limit";
+import bcrypt from "bcrypt";
 import cors from "cors";
 
 const app = express();
@@ -26,34 +27,51 @@ const userProfile = z.object({
   password: z.string().min(8, { message: "Should have at least 8 characters" }),
 });
 
+
+
+const apiLimiter = rateLimit({
+windowMs: 60 * 1000, 
+limit: 60, 
+statusCode: 429,
+message: "Too many requests from this IP, please try again after a minute",
+standardHeaders: true,
+legacyHeaders: false,
+});
+app.use("/api/", apiLimiter);
+
+
 app.post("/api/v1/signup", async (req, res) => {
   // console.log("object")
   const validBody = userProfile.safeParse(req.body);
   // console.log(validBody);
   if (!validBody.success) {
-    res.status(411).send(validBody.error);
+    res.status(400).send(validBody.error);
     return;
   } else {
     const user = await UserModel.findOne({ username: req.body.username });
     if (user) {
-      res.send( "Username Already Exists");
+      res.send("Username Already Exists");
       return;
     }
+    const { username, password } = validBody.data;
+    const hashed = await bcrypt.hash(password, 12);
 
-    const newUser = new UserModel(validBody.data);
+    const newUser = new UserModel({ username, password: hashed });
     await newUser
       .save()
-      .then(() => res.send("User Registered"))
+      .then(() => res.status(201).send("User Registered"))
       .catch((err) => res.send(err));
   }
 });
 
 app.post("/api/v1/signin", async (req, res) => {
   const user = await UserModel.findOne({ username: req.body.username });
-  if (user) {
-    console.log("Before jwt")
-    console.log(process.env.JWT_PASSWORD)
-   
+  const isPasswordValid = user ? await bcrypt.compare(req.body.password, user.password) : false;
+
+  if (user && isPasswordValid) {
+    // console.log("Before jwt")
+    // console.log(process.env.JWT_PASSWORD)
+
     const JWT_PASSWORD = process.env.JWT_PASSWORD as string;
     const token = jwt.sign(
       {
